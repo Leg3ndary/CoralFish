@@ -1,6 +1,6 @@
 import enum
 
-class Emojis(enum.Enum):
+class FishE(enum.Enum):
     '''
     Emojis
     '''
