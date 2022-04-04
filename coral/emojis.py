@@ -1,9 +1,9 @@
 import enum
 
 class FishE(enum.Enum):
-    '''
+    """
     Emojis
-    '''
+    """
     BREAM = 737975203023290418
     GUDEGON = 728531524470833173
     CARP = 728529853363650610
@@ -15,9 +15,9 @@ class FishE(enum.Enum):
     SHARK = 960182957820219462
 
     def __str__(self):
-        '''
+        """
         String format for return
-        '''
+        """
         emoji_dict = {
             "737975203023290418": "Bream",
             "728531524470833173": "Gudgeon",
@@ -29,5 +29,5 @@ class FishE(enum.Enum):
             "738013772500959242": "Rainbow",
             "960182957820219462": "Shark",
         }
-        emoji = f'<:{emoji_dict.get(str(self.value))}:{self.value}>'
+        emoji = f"<:{emoji_dict.get(str(self.value))}:{self.value}>"
         return emoji
