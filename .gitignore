@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 coral/config.json
+coral/test.py
