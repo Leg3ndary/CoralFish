@@ -39,7 +39,11 @@ IP SCHEMA:
 
 {
     "_id": ip: str,
-    ""
+    "users": {
+        user_id(str): tries(int)
+    },
+    "success": 0,
+    "fails": 0
 }
 
 """
@@ -76,7 +80,7 @@ class FishMongo:
         print("Loaded MongoDB")
 
 mongo = FishMongo()
-iplogger = IPLogger(loop)
+iplogger = IPLogger()
 
 def match_code(code: str, user: int, discrim: int):
     """
