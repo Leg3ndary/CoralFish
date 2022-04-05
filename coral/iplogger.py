@@ -15,7 +15,7 @@ IP SCHEMA:
         user_id(str): tries(int)
     },
     "success": 0,
-    "fails": 0
+    "fail": 0
 }
 
 """
@@ -48,23 +48,42 @@ class IPLogger:
         result = self.loop.run_in_executor(None, self.IPS.find_one(query))
 
         if not result:
-            values = (1, 0)
+            s, f = 1, 0
 
             if not success:
-                values = (0, 1)
+                s, f = f, s
 
             new_doc = {
                 "_id": ip,
                 "users": {
                     str(user_id): 1,
                 },
-                "success": values[0],
-                "fails": values[1]
+                "success": s,
+                "fail": f
             }
+
             self.loop.run_in_executor(None, self.IPS.insert_one(new_doc))
             print(f"[ NEW ] New IP Requested - {ip} -")
         else:
-            pass
+            if not result.get("users").get(user_id):
+                new_user = (user_id, 1)
+            else:
+                new_user = (user_id, result.get("users").get(user_id) + 1)
 
+            new_users = result.get("users").update(new_user)
+
+            if success:
+                s, f = result.get("success") + 1, result.get("fail")
+            else:
+                s, f = result.get("success"), result.get("fail") + 1
+            up_doc = {
+                "_id": result.get("_id"),
+                "users": new_users,
+                "success": s,
+                "fail": f
+            }
+
+            self.loop.run_in_executor(None, self.IPS.update_one(up_doc))
+            
 
         

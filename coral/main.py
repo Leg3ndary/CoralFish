@@ -45,7 +45,7 @@ IP SCHEMA:
         user_id(str): tries(int)
     },
     "success": 0,
-    "fails": 0
+    "fail": 0
 }
 
 """
