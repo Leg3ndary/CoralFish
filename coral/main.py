@@ -2,6 +2,7 @@ import asyncio
 
 import json
 import pymongo
+import random
 import time
 import flask
 from discord.ext import oauth
@@ -11,6 +12,7 @@ from iplogger import IPLogger
 
 """
 Database Style
+
 
 DATA:
     USERS:
@@ -73,7 +75,7 @@ class FishMongo:
         """
         self.run = True
         self.mongo = pymongo.MongoClient(
-            f"mongodb+srv://{config.get('MONGOUSER')}:{config.get('MONGOPASS')}@fishc1.7cztx.mongodb.net/DATA?retryWrites=true&w=majority"
+            f"mongodb+srv://{config.get('MONGO_USER')}:{config.get('MONGO_PASS')}@fishc1.7cztx.mongodb.net/DATA?retryWrites=true&w=majority"
         )
         self.DATA = self.mongo["DATA"]
         self.USERS = self.DATA["USERS"]
@@ -102,13 +104,27 @@ async def home():
     api_status = {"API_STATUS": 200}
     return api_status
 
-@app.route("/fish/<int:user_id>")
-async def fish(user_id):
+@app.route("/fish/<int:unix>/<int:user_id>")
+async def fish(unix, user_id):
     """
     Fish for some fishies
     """
-
-
+    chance = random.randint(0, 1000)
+    if chance < 1:
+        # 5 Star
+        pass
+    elif chance < 11:
+        # 4 star
+        pass
+    elif chance < 100:
+        # 3 Star
+        pass
+    elif chance < 350:
+        # 2 star
+        pass
+    else:
+        # 1 star
+        pass
 
 app.run(
     host="0.0.0.0", 
