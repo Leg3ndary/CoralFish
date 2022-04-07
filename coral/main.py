@@ -5,7 +5,6 @@ import pymongo
 import random
 import time
 import flask
-from discord.ext import oauth
 from emojis import FishE as fishe
 from iplogger import IPLogger
 # motor and flask async have massive problems working with each other so we just use to_thread
@@ -56,13 +55,6 @@ with open("coral/config.json", "r") as f:
     config = json.load(f)
     print("Loaded Config")
 
-oclient = oauth.OAuth2Client(
-    client_id = 929489293725040671,
-    client_secret = config.get("CLIENT_SECRET"),
-    redirect_uri = "https://discord.com/api/oauth2/authorize?client_id=929489293725040671&redirect_uri=https%3A%2F%2Fgithub.com%2FLeg3ndary%2FCoralFish%2Fblob%2Fmain%2FACCEPTED.md&response_type=code&scope=identify",
-    scopes = ["identify"]
-)
-print("Loaded Oauth2Client")
 
 class FishMongo:
     """
